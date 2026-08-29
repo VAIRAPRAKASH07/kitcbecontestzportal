@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Coding & Hackathon Portal</title>
+  <style>
+    :root{--bg:#f4f7fb;--card:#fff;--text:#182230;--muted:#667085;--primary:#315efb;--primary2:#2449d8;--danger:#dc3545;--success:#16834b;--border:#e5e7eb;--shadow:0 10px 30px rgba(16,24,40,.08)}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.hidden{display:none!important}
+    .auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#eef3ff,#f8fbff)}
+    .auth-card{width:min(430px,100%);background:#fff;border-radius:22px;box-shadow:var(--shadow);padding:28px}.brand{text-align:center;margin-bottom:24px}.brand .logo{font-size:42px}.brand h1{margin:8px 0 4px;font-size:25px}.brand p{margin:0;color:var(--muted)}
+    .tabs{display:flex;gap:8px;background:#f2f4f7;padding:5px;border-radius:12px;margin-bottom:18px}.tab{flex:1;padding:11px;border-radius:9px;background:transparent;color:var(--muted);font-weight:700}.tab.active{background:#fff;color:var(--primary);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .field{margin-bottom:14px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:12px 13px;border:1px solid var(--border);border-radius:10px;outline:none;background:#fff}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(49,94,251,.12)}
+    .btn{padding:11px 15px;border-radius:10px;font-weight:700}.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary2)}.btn-secondary{background:#eef2f6;color:#344054}.btn-danger{background:#fee4e6;color:#b42318}.btn-danger-strong{background:#dc3545;color:#fff}.btn-danger-strong:hover{background:#b42318}.btn-success{background:#e8f7ef;color:#067647}.btn-small{padding:7px 10px;font-size:12px}.full{width:100%}
+    .message{padding:11px 13px;border-radius:10px;margin:12px 0;font-size:13px}.message.error{background:#fff0f1;color:#b42318}.message.success{background:#eaf8f0;color:#067647}.message.info{background:#eef4ff;color:#1d4ed8}
+    .app{min-height:100vh}.topbar{height:68px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:20}.topbar-title{font-weight:800}.userbox{display:flex;align-items:center;gap:12px}.avatar{width:38px;height:38px;border-radius:50%;background:#e8edff;color:var(--primary);display:grid;place-items:center;font-weight:800}.layout{display:flex;min-height:calc(100vh - 68px)}.sidebar{width:230px;background:#fff;border-right:1px solid var(--border);padding:16px}.navbtn{width:100%;text-align:left;background:transparent;padding:11px 12px;border-radius:10px;color:#475467;margin-bottom:4px;font-weight:700}.navbtn.active,.navbtn:hover{background:#eef3ff;color:var(--primary)}.content{flex:1;padding:24px;max-width:1500px;margin:auto;width:100%;background:linear-gradient(180deg,#eaf1ff 0%,#f6f9ff 320px,#f6f9ff 100%)}
+    .page-title{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.page-title h2{margin:0;font-size:24px}.page-title p{margin:4px 0 0;color:var(--muted);font-size:13px}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.stat{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 3px 15px rgba(16,24,40,.04)}.stat .label{font-size:12px;color:var(--muted);font-weight:700}.stat .value{font-size:28px;font-weight:800;margin-top:8px}.cards{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 3px 15px rgba(16,24,40,.04)}.card h3{margin:0 0 8px}.muted{color:var(--muted);font-size:13px}.status{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;background:#eef2f6;color:#475467}.status.active{background:#eaf8f0;color:#067647}.status.inactive{background:#f2f4f7;color:#667085}.response{margin-top:15px;padding-top:14px;border-top:1px solid var(--border)}.response-row{display:flex;gap:8px}.response-row .btn{flex:1}.locked{font-size:12px;color:#067647;font-weight:700;background:#eaf8f0;padding:9px;border-radius:9px}
+    .panel{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:16px}.panel h3{margin:0 0 14px}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.form-grid .full-span{grid-column:1/-1}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:760px}.table th,.table td{padding:11px 10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px;vertical-align:top}.table th{font-size:11px;text-transform:uppercase;color:var(--muted);background:#fafbfc}.actions{display:flex;gap:6px;flex-wrap:wrap}.empty{text-align:center;color:var(--muted);padding:30px}.loader{position:fixed;inset:0;background:rgba(255,255,255,.65);display:grid;place-items:center;z-index:100}.spinner{width:40px;height:40px;border:4px solid #dbe2ff;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .modal{position:fixed;inset:0;background:rgba(16,24,40,.45);display:grid;place-items:center;padding:18px;z-index:80}.modal-card{background:#fff;width:min(560px,100%);border-radius:18px;padding:20px;max-height:90vh;overflow-y:auto}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.modal-head h3{margin:0}.close{background:#f2f4f7;width:34px;height:34px;border-radius:50%;font-size:20px}
+    @media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.sidebar{width:190px}}@media(max-width:680px){.layout{display:block}.sidebar{width:100%;border-right:0;border-bottom:1px solid var(--border);display:flex;overflow:auto;gap:5px}.navbtn{min-width:max-content;width:auto}.content{padding:16px}.stats{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr}.form-grid .full-span{grid-column:auto}.topbar{padding:0 14px}.topbar-title{font-size:14px}.userbox .user-name{display:none}}
+    .welcome-card{background:linear-gradient(135deg,#eaf1ff,#dfe9ff);border:1px solid #d6e3ff;border-radius:18px;padding:22px 24px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+    .welcome-card h2{margin:0 0 4px;font-size:22px}.welcome-card p{margin:0;color:var(--muted);font-size:13px}
+    .stat{border-top:3px solid var(--primary)}.stat.acc-green{border-top-color:var(--success)}.stat.acc-orange{border-top-color:#f59e0b}.stat.acc-red{border-top-color:var(--danger)}
+    .dash-cols{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-top:18px}
+    @media(max-width:900px){.dash-cols{grid-template-columns:1fr}}
+    .mini-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}.mini-row:last-child{margin-bottom:0}
+    .mini-row .mini-label{flex:0 0 140px;font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .mini-track{flex:1;height:9px;background:#eef2f6;border-radius:999px;overflow:hidden}
+    .mini-fill{height:100%;background:linear-gradient(90deg,var(--primary),#7c9dff);border-radius:999px}
+    .mini-count{flex:0 0 30px;text-align:right;font-size:12px;font-weight:800;color:var(--muted)}
+    .activity-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+    .activity-item:last-child{border-bottom:0}.activity-item .who{font-weight:700}
+    .link-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;color:var(--primary);background:#eef3ff;padding:7px 10px;border-radius:8px;text-decoration:none}
+    .link-btn:hover{background:#dfe8ff}
+    .contest-closed{font-size:12px;color:#94a3b8;font-weight:800;background:#f2f4f7;padding:8px 10px;border-radius:8px;text-align:center}
+    .report-summary{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}.report-chip{padding:8px 11px;border-radius:10px;background:#f2f4f7;font-size:12px;font-weight:800;color:#344054}.report-chip.registered{background:#eaf8f0;color:#067647}.report-chip.not-registered{background:#fff0f1;color:#b42318}.report-chip.no-response{background:#fff7e6;color:#a15c00}
+  </style>
+</head>
+<body>
+  <div id="loader" class="loader hidden"><div class="spinner"></div></div>
+
+  <section id="authView" class="auth">
+    <div class="auth-card">
+      <div class="brand"><div class="logo">💻</div><h1>Student Coding & Hackathon Portal</h1><p>Contest registration and student services</p></div>
+      <div class="tabs"><button id="studentTab" class="tab active" onclick="switchLogin('student')">Student</button><button id="authorityTab" class="tab" onclick="switchLogin('authority')">Authority</button></div>
+      <div id="loginMessage"></div>
+      <form id="studentLoginForm" onsubmit="loginStudentUI(event)">
+        <div class="field"><label>Register Number</label><input id="studentReg" autocomplete="username" required></div>
+        <div class="field"><label>Password</label><input id="studentPass" type="password" autocomplete="current-password" required></div>
+        <button class="btn btn-primary full" type="submit">Login as Student</button>
+      </form>
+      <form id="authorityLoginForm" class="hidden" onsubmit="loginAuthorityUI(event)">
+        <div class="field"><label>Username</label><input id="authorityUser" autocomplete="username" required></div>
+        <div class="field"><label>Password</label><input id="authorityPass" type="password" autocomplete="current-password" required></div>
+        <button class="btn btn-primary full" type="submit">Login as Authority</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="appView" class="app hidden">
+    <header class="topbar"><div class="topbar-title">💻 Coding & Hackathon Portal</div><div class="userbox"><div class="avatar" id="avatar">U</div><div class="user-name" id="userName">User</div><button class="btn btn-secondary btn-small" onclick="logoutUI()">Logout</button></div></header>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar"></aside>
+      <main class="content" id="mainContent"></main>
+    </div>
+  </section>
+
+  <div id="modal" class="modal hidden"><div class="modal-card"><div class="modal-head"><h3 id="modalTitle">Details</h3><button class="close" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
